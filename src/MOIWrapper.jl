@@ -333,6 +333,9 @@ function MOI.get(model::Optimizer, ::MOI.TerminationStatus)
         return MOI.NO_SOLUTION
     end
 
+    if !haskey(SNOPT_status, model.workspace.status)
+        return MOI.NO_SOLUTION
+    end
     status = SNOPT_status[model.workspace.status]
     if status in (:Solve_Succeeded,
                   :Feasible_Point_Found)
